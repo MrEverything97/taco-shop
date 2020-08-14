@@ -13,20 +13,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 
 @Controller
-@RequestMapping("/ingredient")
 public class IngredientController {
 
 
 	@Autowired
 	private IngredientService ingredientService;
 
-	@GetMapping("/add")
+	@GetMapping
 	public String showAddForm(Model model) {
 		model.addAttribute("ingredient", new Ingredient());
 		return "addIngredient";
 	}
 
-	@PostMapping
+	@PostMapping("/ingredient/add")
 	public String addIngredient(Ingredient ingredient, Model model) {
 	  ingredientService.save(ingredient);
 	  model.addAttribute(ingredient);

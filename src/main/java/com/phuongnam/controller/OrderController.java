@@ -31,9 +31,9 @@ public class OrderController {
         orders.setPlacedAt(now);
         ordersService.save(orders);
         model.addAttribute(orders);
-        return "redirect:orders/orders-list";
+        return "redirect:/orders-list";
     }
-    @GetMapping("/orders/orders-list")
+    @GetMapping("/orders-list")
     public ModelAndView showOrderList(){
         List<Orders> orders = ordersService.findAll();
         ModelAndView modelAndView = new ModelAndView("result");
@@ -51,11 +51,10 @@ public class OrderController {
     @PostMapping("/orders/edit")
     public ModelAndView editOrder(@ModelAttribute("order") Orders orders) {
         ordersService.save(orders);
-        ModelAndView modelAndView = new ModelAndView("edit-order");
+        ModelAndView modelAndView = new ModelAndView("redirect:/orders-list");
         modelAndView.addObject("order", orders);
         return modelAndView;
     }
-
     @GetMapping("/orders/delete/{id}")
     public ModelAndView showDeleteForm(@PathVariable Long id) {
         Orders orders = ordersService.findById(id);
@@ -67,7 +66,7 @@ public class OrderController {
     @PostMapping("/orders/delete")
     public String deleteNote(@ModelAttribute("order") Orders orders) {
         ordersService.remove(orders.getId());
-        return "redirect:orders/orders-list";
+        return "redirect:/orders-list";
     }
 
 }
